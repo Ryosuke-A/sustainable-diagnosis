@@ -58,6 +58,7 @@ export default function Question({ text, choices, onAnswer }: QuestionProps) {
               <Box
                 sx={{
                   mt: 1,
+                  color: '#000', 
                   height: 40,
                   display: 'flex',
                   alignItems: 'center',
