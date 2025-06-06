@@ -19,7 +19,7 @@ export default function Question({ text, choices, onAnswer }: QuestionProps) {
 
   return (
     <Box sx={{ textAlign: 'center' }}>
-      <Typography variant="h5" fontWeight="bold" sx={{ mb: 2 }}>
+      <Typography variant="h5" fontWeight="bold" sx={{ mb: 2, color: '#000'  }}>
         {text}
       </Typography>
 
