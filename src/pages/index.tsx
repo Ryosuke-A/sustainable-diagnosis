@@ -255,6 +255,7 @@ export default function Home() {
         boxSizing: 'border-box',
         position: 'relative',
         pt: 10,
+        backgroundColor: '#fff',
       }}
     >
       {/* ヘッダー表示 */}
