@@ -20,7 +20,18 @@ export default function Question({ text, choices, onAnswer }: QuestionProps) {
       <Typography variant="h5" fontWeight="bold" sx={{ mb: 2 }}>
         {text}
       </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: {
+            xs: 'column',  // スマホ画面サイズでは縦並び
+            sm: 'row'      // タブレット以上では横並び
+          },
+          gap: 6,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         {choices.map((choice, index) => (
           <Box
             key={index}
