@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Circle from './Circle';
 
 type ScoreVector7 = number[];
@@ -15,17 +15,32 @@ interface QuestionProps {
 }
 
 export default function Question({ text, choices, onAnswer }: QuestionProps) {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Box sx={{ textAlign: 'center' }}>
       <Typography variant="h5" fontWeight="bold" sx={{ mb: 2 }}>
         {text}
       </Typography>
-      <Box sx={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: isSmallScreen ? 4 : 8,
+        }}
+      >
         {choices.map((choice, index) => (
           <Box
             key={index}
             onClick={() => onAnswer(choice.score)}
-            sx={{ cursor: 'pointer', textAlign: 'center' }}
+            sx={{
+              cursor: 'pointer',
+              textAlign: 'center',
+              minWidth: 100,
+              flex: '1 1 120px', // 幅に余裕があれば横に並び、狭いときは折り返す
+            }}
           >
             <Circle color={['#FF6F61', '#6A5ACD', '#20B2AA'][index % 3]} />
             <Typography sx={{ mt: 1 }}>{choice.label}</Typography>

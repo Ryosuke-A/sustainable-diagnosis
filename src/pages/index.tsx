@@ -243,16 +243,24 @@ export default function Home() {
   };
 
   return (
+  <Box
+    sx={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: 6,
+      padding: { xs: 2, sm: 4 },
+      textAlign: 'center',
+      boxSizing: 'border-box',
+    }}
+  >
     <Box
       sx={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 6,
-        padding: 4,
-        textAlign: 'center',
+        width: '100%',
+        maxWidth: '700px',
+        px: { xs: 2, sm: 4 },
       }}
     >
       {!isFinished ? (
@@ -270,5 +278,6 @@ export default function Home() {
         />
       )}
     </Box>
-  );
+  </Box>
+);
 }
