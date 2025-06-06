@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import Circle from './Circle';
 
 type ScoreVector7 = number[];
@@ -15,50 +15,68 @@ interface QuestionProps {
 }
 
 export default function Question({ text, choices, onAnswer }: QuestionProps) {
+  const isMobile = useMediaQuery('(max-width:600px)');
+
   return (
     <Box sx={{ textAlign: 'center' }}>
       <Typography variant="h5" fontWeight="bold" sx={{ mb: 2 }}>
         {text}
       </Typography>
+
       <Box
         sx={{
           display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' },
-          gap: 4,
+          flexDirection: isMobile ? 'column' : 'row',
+          gap: isMobile ? 4 : 8,
           justifyContent: 'center',
           alignItems: 'center',
+          flexWrap: 'wrap',
         }}
       >
-        {choices.map((choice, index) => (
-          <Box
-            key={index}
-            onClick={() => onAnswer(choice.score)}
-            sx={{
-              cursor: 'pointer',
-              textAlign: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              width: 120, // 固定幅で中央揃えを安定
-            }}
-          >
-            <Circle color={['#FF6F61', '#6A5ACD', '#20B2AA'][index % 3]} />
-            <Typography
+        {choices.map((choice, index) => {
+          const length = choice.label.length;
+          let fontSize = '1rem';
+          if (length > 30) fontSize = '0.6rem';
+          else if (length > 20) fontSize = '0.75rem';
+          else if (length > 12) fontSize = '0.85rem';
+
+          return (
+            <Box
+              key={index}
+              onClick={() => onAnswer(choice.score)}
               sx={{
-                mt: 1,
-                wordBreak: 'break-word',
-                fontSize:
-                  choice.label.length > 20
-                    ? '0.7rem'
-                    : choice.label.length > 10
-                    ? '0.8rem'
-                    : '0.9rem',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                width: 140,
+                height: 160,
+                justifyContent: 'center',
               }}
             >
-              {choice.label}
-            </Typography>
-          </Box>
-        ))}
+              <Circle color={['#FF6F61', '#6A5ACD', '#20B2AA'][index % 3]} />
+              <Box
+                sx={{
+                  mt: 1,
+                  height: 40,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize,
+                    whiteSpace: 'nowrap',
+                    textAlign: 'center',
+                  }}
+                >
+                  {choice.label}
+                </Typography>
+              </Box>
+            </Box>
+          );
+        })}
       </Box>
     </Box>
   );

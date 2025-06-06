@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box,Typography } from '@mui/material';
 import { useState } from 'react';
 import Question from '../components/Question';
 import Result from '../components/Result';
@@ -243,41 +243,78 @@ export default function Home() {
   };
 
   return (
-  <Box
-    sx={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      gap: 6,
-      padding: { xs: 2, sm: 4 },
-      textAlign: 'center',
-      boxSizing: 'border-box',
-    }}
-  >
     <Box
       sx={{
-        width: '100%',
-        maxWidth: '700px',
-        px: { xs: 2, sm: 4 },
+        minHeight: '100vh',
+        paddingTop: '80px', 
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: { xs: 2, sm: 4 },
+        textAlign: 'center',
+        boxSizing: 'border-box',
+        position: 'relative',
+        pt: 10,
       }}
     >
-      {!isFinished ? (
-        <Question
-          text={questions[currentIndex].text}
-          choices={questions[currentIndex].choices}
-          onAnswer={handleAnswer}
-        />
-      ) : (
-        <Result
-          resultText={getBestSDGGoal(totalScore)}
-          scores={totalScore}
-          onReset={reset}
-          categories={categories}
-        />
-      )}
-    </Box>
+      {/* ヘッダー表示 */}
+<Box
+  sx={{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    p: 2,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 2,
+    backgroundImage: 'url(/haikei.png)',     // ← 背景画像を追加
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    zIndex: 10,                               // ← 前面に表示
+  }}
+>
+  <img src="/VoYlogo.png" alt="logo" style={{ height: 50 }} />
+  <Box
+  sx={{
+      backgroundColor: 'rgba(61, 61, 61, 0.4)',  // ← 半透明背景
+      borderRadius: 1,
+      px: 1.5,
+      py: 0.5,
+    }}
+  >
+  <Typography
+    variant="h6"
+    fontWeight="bold"
+    sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.6)' }} // 見やすくするため
+  >
+    サステナビリティ診断
+  </Typography>
   </Box>
-);
+</Box>
+
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: '700px',paddingTop: '80px',
+          px: { xs: 2, sm: 4 },
+        }}
+      >
+        {!isFinished ? (
+          <Question
+            text={questions[currentIndex].text}
+            choices={questions[currentIndex].choices}
+            onAnswer={handleAnswer}
+          />
+        ) : (
+          <Result
+            resultText={getBestSDGGoal(totalScore)}
+            scores={totalScore}
+            onReset={reset}
+            categories={categories}
+          />
+        )}
+      </Box>
+    </Box>
+  );
 }
