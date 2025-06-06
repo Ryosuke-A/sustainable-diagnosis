@@ -1,5 +1,4 @@
-import { Box, Typography, Button } from '@mui/material';
-import Circle from '../components/Circle'; // パスは環境に合わせて調整してください
+import { Box } from '@mui/material';
 import { useState } from 'react';
 import Question from '../components/Question';
 import Result from '../components/Result';
