@@ -23,11 +23,8 @@ export default function Question({ text, choices, onAnswer }: QuestionProps) {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: {
-            xs: 'column',  // スマホ画面サイズでは縦並び
-            sm: 'row'      // タブレット以上では横並び
-          },
-          gap: 6,
+          flexDirection: { xs: 'column', sm: 'row' },
+          gap: 4,
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -36,10 +33,30 @@ export default function Question({ text, choices, onAnswer }: QuestionProps) {
           <Box
             key={index}
             onClick={() => onAnswer(choice.score)}
-            sx={{ cursor: 'pointer', textAlign: 'center' }}
+            sx={{
+              cursor: 'pointer',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: 120, // 固定幅で中央揃えを安定
+            }}
           >
             <Circle color={['#FF6F61', '#6A5ACD', '#20B2AA'][index % 3]} />
-            <Typography sx={{ mt: 1 }}>{choice.label}</Typography>
+            <Typography
+              sx={{
+                mt: 1,
+                wordBreak: 'break-word',
+                fontSize:
+                  choice.label.length > 20
+                    ? '0.7rem'
+                    : choice.label.length > 10
+                    ? '0.8rem'
+                    : '0.9rem',
+              }}
+            >
+              {choice.label}
+            </Typography>
           </Box>
         ))}
       </Box>
